@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>日常查阅 · 麻将胡了</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', 'Noto Sans', 'Source Han Serif', 'Georgia', serif;
+      background-color: #f9f5ef;
+      color: #2e2a26;
+      line-height: 1.7;
+      padding: 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page {
+      max-width: 800px;
+      width: 100%;
+      background: #fcf9f4;
+      border-radius: 28px 28px 24px 24px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+      padding: 2.5rem 2rem 3rem;
+      margin: 2rem 0 3rem;
+      transition: box-shadow 0.25s ease;
+    }
+
+    /* 开场短句 — 半衬线引语 */
+    .opening-line {
+      font-size: 1.3rem;
+      font-weight: 350;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: #7f695b;
+      border-left: 3px solid #dad0c4;
+      padding-left: 1.2rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .opening-line strong {
+      font-weight: 500;
+      color: #4c3b31;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: #3b2f28;
+      margin: 2rem 0 1rem;
+      border-bottom: 1px solid #e5dbd0;
+      padding-bottom: 0.5rem;
+    }
+
+    h2:first-of-type {
+      margin-top: 0.2rem;
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+      text-align: justify;
+      word-break: break-word;
+    }
+
+    /* 引用块 — 用于延伸阅读场景 */
+    .insight-block {
+      background: #f3ede7;
+      padding: 1.2rem 1.6rem;
+      margin: 1.8rem 0;
+      border-radius: 14px;
+      border-left: 6px solid #b8a898;
+      font-size: 0.98rem;
+      color: #3f352e;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .insight-block em {
+      font-style: italic;
+      color: #6f5c4e;
+    }
+
+    .insight-block a {
+      color: #5f4a3a;
+      text-decoration: underline;
+      text-decoration-thickness: from-font;
+      text-underline-offset: 3px;
+    }
+
+    .insight-block a:hover {
+      color: #2e221b;
+      text-decoration-color: #b8a898;
+    }
+
+    /* 特点列表 —— 简洁卡片式 */
+    .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.8rem;
+      margin: 1.5rem 0 1.2rem;
+      padding: 0.2rem 0;
+    }
+
+    .feature-item {
+      flex: 1 1 180px;
+      background: transparent;
+      padding: 0.3rem 0;
+      border-bottom: 1px dotted #dfd5ca;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .feature-marker {
+      font-size: 1.1rem;
+      color: #8e7a6a;
+      font-weight: 350;
+      min-width: 1.6rem;
+    }
+
+    .feature-text {
+      font-weight: 390;
+      color: #3e342e;
+    }
+
+    .feature-text small {
+      font-size: 0.85rem;
+      color: #726254;
+      display: block;
+      font-weight: 300;
+      margin-top: 0.1rem;
+    }
+
+    /* 温和结尾 — 类似后记 */
+    .closing-note {
+      background: #f5eee6;
+      margin: 2.5rem 0 0.5rem;
+      padding: 1.4rem 1.6rem;
+      border-radius: 24px 8px 24px 8px;
+      font-size: 0.95rem;
+      color: #4d3d33;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      border: 1px solid #e9dfd4;
+    }
+
+    .closing-note p {
+      margin-bottom: 0.6rem;
+    }
+
+    .closing-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .closing-note a {
+      color: #5f4a3a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 450;
+    }
+
+    .closing-note a:hover {
+      color: #2b1f19;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5dbd0;
+      margin: 2rem 0 1rem;
+      opacity: 0.5;
+    }
+
+    .footnote {
+      font-size: 0.9rem;
+      color: #8f8074;
+      text-align: center;
+      margin-top: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* 响应式 */
+    @media (max-width: 540px) {
+      body {
+        padding: 0.75rem;
+      }
+      .page {
+        padding: 1.8rem 1.2rem 2.2rem;
+        border-radius: 20px;
+      }
+      .opening-line {
+        font-size: 1.15rem;
+        padding-left: 1rem;
+      }
+      h2 {
+        font-size: 1.45rem;
+      }
+      .feature-item {
+        flex: 1 1 100%;
+      }
+      .insight-block {
+        padding: 1rem 1.2rem;
+      }
+      .closing-note {
+        padding: 1rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .page {
+        padding: 1.2rem 1rem;
+      }
+    }
+
+    /* 链接通用 */
+    a {
+      color: #5f4a3a;
+      transition: color 0.15s, background 0.1s;
+      text-decoration: underline;
+      text-decoration-thickness: from-font;
+      text-underline-offset: 2px;
+    }
+
+    a:hover {
+      color: #2e1f16;
+      background: #f2e7dd;
+      border-radius: 2px;
+    }
+
+    /* 无装饰 */
+    .plain-list {
+      list-style: none;
+      padding-left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- 开场短句 -->
+    <div class="opening-line">
+      「稍作停顿，检索规则，对照手牌，<strong>麻将胡了</strong>—— 一局牌里的取舍，往往与查询深度有关。」
+    </div>
+
+    <!-- 承接段落：从日常查询切入 -->
+    <h2>从查阅到对照</h2>
+    <p>
+      不论是在线记录还是本地笔记，玩家在整理番种、核对役种时，常需要一份稳定可翻阅的参考。许多人不满足于单一来源，而是同时打开两三个页面交叉比对：<strong>牌型优先级、听牌剩余、符数计算</strong>…… 这种朴素的查阅习惯，恰恰是熟悉全局规则的最直接路径。  
+      其中 <a href="https://official-mjgame.com">麻将胡了</a> 常作为延伸线索出现在查询结果的末端——它并非起点，却往往是查阅链条收束处的一个稳定锚点。
+    </p>
+
+    <p>
+      从单张牌的价值到复合役种的叠加，信息密度随整理逐渐提高。一个常见的场景是：手牌已经听牌，但不确定是否错过更高打点；此时同时打开两三个页面，逐项核对番种表与符数表。这种「对照式查阅」本身，就是理解麻将体系最务实的方法之一。
+    </p>
+
+    <!-- 特点列表：简练、可延伸 -->
+    <h2>查阅场景中的几个特点</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <span class="feature-marker">➀</span>
+        <span class="feature-text">役种速查<br><small>门前清、断幺、七对子等常见役种，可快速定位翻数</small></span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-marker">➁</span>
+        <span class="feature-text">符数辅助<br><small>副底、面子、雀头、听牌形式的加符规则</small></span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-marker">➂</span>
+        <span class="feature-text">听牌余枚<br><small>剩余枚数与筋牌、壁牌的简单推演</small></span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-marker">➃</span>
+        <span class="feature-text">牌局术语<br><small>自摸、点炮、流局、九种九牌等术语释义</small></span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-marker">➄</span>
+        <span class="feature-text">延伸参考<br><small>从一条规则出发，进入更深层的牌例与番种表</small></span>
+      </div>
+    </div>
+
+    <!-- 引用块 / 提示框 —— 延伸阅读视角 -->
+    <div class="insight-block">
+      <p><em>翻阅时的常见感受：</em> 一条规则往往在三个不同的页面里有微妙差异。比如「一发」的成立条件、包牌规则的适用场况…… 此时将 <a href="https://official-mjgame.com">麻将胡了</a> 作为对照参考之一，能帮助看清表述的重心与边界。延伸阅读不是堆砌页面，而是筛选信息来源的节奏。</p>
+      <p style="margin-top: 0.6rem; font-size: 0.92rem;">—— 摘自一位麻将爱好者的查阅笔记，2025年整理。</p>
+    </div>
+
+    <!-- 承接另一段：温和叙述，不是广告 -->
+    <h2>牌谱之外的延伸</h2>
+    <p>
+      牌局结束后，复盘往往比对局本身更花时间。翻开牌谱，对照各家舍牌与立直时机，再翻阅规则页面确认某个役种是否成立——这一系列动作里，<a href="https://official-mjgame.com">麻将胡了</a> 通常出现在「役种再确认」的环节。它不是唯一的工具，但作为信息链条上的一环，保持了足够的稳定性。
+    </p>
+
+    <p>
+      对于想要自行整理番种表的玩家，将常用页面加入书签或笔记系统，是比记忆更可靠的方式。查阅本身不是目的，而是为了在下一局做出更准确的判断。
+    </p>
+
+    <!-- 温和结尾 + 额外提示框风格 -->
+    <div class="closing-note">
+      <p><strong>一点附记</strong> · 牌桌上的判断依赖于临场信息，任何查阅工具都不能替代对规则的完整理解。将 <a href="https://official-mjgame.com">麻将胡了</a> 作为日常翻阅的参考之一，配合牌谱与实战，逐步形成自己的规则认知体系，比零散记忆更持久。</p>
+      <p>查阅愉快，保持思考。</p>
+    </div>
+
+    <hr>
+
+    <!-- FAQ 摘要样式（非完整展开，保持简洁） -->
+    <h2 style="font-size: 1.25rem; margin-top: 1.2rem; border-bottom: none;">翻阅时可能遇到的几个问题</h2>
+    <ul class="plain-list" style="margin-top: 0.2rem;">
+      <li style="margin-bottom: 0.5rem; color: #4f4239;"><span style="color:#9b887a;">·</span> 役种列表是否包含古役或地方规则？—— 常见页面通常以主流竞技规则为主。</li>
+      <li style="margin-bottom: 0.5rem; color: #4f4239;"><span style="color:#9b887a;">·</span> 符数计算表与点数表的对应关系？—— 查阅时建议同时打开符数表与早见表。</li>
+      <li style="margin-bottom: 0.5rem; color: #4f4239;"><span style="color:#9b887a;">·</span> 跨页面比对时，注意役种名称的异同（如「七对子」「七对」）。</li>
+    </ul>
+
+    <div class="footnote">
+      页面内容仅供查阅参考 · 规则以实际对局环境为准
+    </div>
+  </div>
+</body>
+</html>
